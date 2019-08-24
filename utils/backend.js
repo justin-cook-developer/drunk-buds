@@ -6,10 +6,10 @@ class AuthError extends Error {
     this.status = 401;
   }
 
-  middleware(error, req, res, next) {
-    if (error.type === this.type) {
-      res.status(this.status).json({
-        errors: { [this.subtype]: this.message },
+  static middleware(error, req, res, next) {
+    if (error.type === 'Auth') {
+      res.status(error.status).json({
+        errors: { [error.subtype]: error.message },
       });
     } else {
       next(error);
@@ -17,6 +17,15 @@ class AuthError extends Error {
   }
 }
 
+const userExists = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+};
+
 module.exports = {
   AuthError,
+  userExists,
 };

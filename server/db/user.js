@@ -9,6 +9,7 @@ User.init(
     username: {
       type: STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
       },
@@ -55,18 +56,11 @@ User.init(
       type: BOOLEAN,
       defaultValue: false,
     },
-    googleId: {
-      type: STRING,
-      unique: true,
-    },
   },
   { sequelize: connection, modelName: 'user' }
 );
 
 User.beforeCreate(async instance => {
-  if (instance.googleId) {
-    return;
-  }
   const hash = await User.hash(instance.password);
   instance.password = hash;
   return instance;
@@ -83,7 +77,6 @@ User.beforeUpdate(async instance => {
 User.prototype.toJSON = function() {
   const values = this.get();
   delete values.password;
-  delete values.googleId;
   return values;
 };
 
@@ -100,6 +93,7 @@ User.hash = str => {
 };
 
 User.signup = async function({
+  username,
   firstName,
   lastName,
   email,
@@ -111,12 +105,12 @@ User.signup = async function({
       throw new AuthError('Password is a required field.', 'password');
     }
 
-    const defaults = { firstName, lastName, password };
+    const defaults = { firstName, lastName, email, password };
     if (imageURL) {
       defaults.imageURL = imageURL;
     }
     const [user, created] = await this.findOrCreate({
-      where: { email },
+      where: { username },
       defaults,
     });
 
@@ -124,7 +118,7 @@ User.signup = async function({
       return user;
     }
 
-    throw new AuthError('A user is already registered to this email.', 'email');
+    throw new AuthError('This username is not available.', 'username');
   } catch (error) {
     throw error;
   }
@@ -145,11 +139,14 @@ User.comparePasswords = (inputStr, password) => {
   });
 };
 
-User.login = async function(email, password) {
+User.login = async function(username, password) {
   try {
-    const user = await this.findOne({ where: { email } });
+    const user = await this.findOne({ where: { username } });
     if (!user) {
-      throw new AuthError('No user registered with that email.', 'email');
+      throw new AuthError(
+        'No user registered under that username.',
+        'username'
+      );
     }
     await this.comparePasswords(password, user.password);
     return user;
