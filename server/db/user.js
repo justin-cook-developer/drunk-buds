@@ -101,14 +101,11 @@ User.signup = async function({
   imageURL,
 }) {
   try {
-    if (!password) {
-      throw new AuthError('Password is a required field.', 'password');
-    }
-
     const defaults = { firstName, lastName, email, password };
     if (imageURL) {
       defaults.imageURL = imageURL;
     }
+    
     const [user, created] = await this.findOrCreate({
       where: { username },
       defaults,

@@ -10,13 +10,15 @@ const app = express();
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(compression());
-
 app.use(session);
-app.use(serializeUser);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/hello', (req, res) => res.send('hello'));
+
+app.use(serializeUser);
+
+app.use('/auth', require('../auth/index'));
 
 module.exports = app;
