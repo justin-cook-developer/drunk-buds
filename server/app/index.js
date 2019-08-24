@@ -2,8 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const compression = require('compression');
 const helmet = require('helmet');
+
 const session = require('./sessionMiddleware');
 const serializeUser = require('./serializeUserMiddleware');
+const errorMiddleware = require('./errorMiddleware/index');
 
 const app = express();
 
@@ -20,5 +22,7 @@ app.get('/hello', (req, res) => res.send('hello'));
 app.use(serializeUser);
 
 app.use('/auth', require('../auth/index'));
+
+app.use(errorMiddleware);
 
 module.exports = app;

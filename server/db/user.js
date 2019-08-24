@@ -42,6 +42,7 @@ User.init(
       allowNull: false,
       validate: {
         notEmpty: true,
+        len: [5],
       },
     },
     imageURL: {
@@ -105,7 +106,7 @@ User.signup = async function({
     if (imageURL) {
       defaults.imageURL = imageURL;
     }
-    
+
     const [user, created] = await this.findOrCreate({
       where: { username },
       defaults,

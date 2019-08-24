@@ -25,7 +25,7 @@ Group.init(
         notEmpty: false,
       },
     },
-    scheduled: {
+    startTime: {
       type: DATE,
       allowNull: false,
       validate: {
