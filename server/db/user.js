@@ -6,6 +6,13 @@ const { AuthError } = require('../../utils/backend');
 class User extends Model {}
 User.init(
   {
+    username: {
+      type: STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     firstName: {
       type: STRING,
       allowNull: false,
