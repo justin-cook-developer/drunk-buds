@@ -1,4 +1,4 @@
-const { Model, STRING, BOOLEAN } = require('sequelize');
+const { Model, STRING, BOOLEAN, UUID, UUIDV4 } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const connection = require('./connection');
 const { AuthError } = require('../../utils/backend');
@@ -6,6 +6,11 @@ const { AuthError } = require('../../utils/backend');
 class User extends Model {}
 User.init(
   {
+    id: {
+      primaryKey: true,
+      type: UUID,
+      defaultValue: UUIDV4,
+    },
     username: {
       type: STRING,
       allowNull: false,

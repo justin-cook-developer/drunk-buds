@@ -14,7 +14,7 @@ const promisedListen = port =>
   });
 
 connection
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => promisedListen(PORT))
   .then(() => console.log(`Listening at port: ${PORT}`))
   .catch(console.error);

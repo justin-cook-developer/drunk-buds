@@ -1,9 +1,22 @@
-const { Model, STRING, BOOLEAN, TEXT, DATE } = require('sequelize');
+const {
+  Model,
+  STRING,
+  BOOLEAN,
+  TEXT,
+  DATE,
+  UUID,
+  UUIDV4,
+} = require('sequelize');
 const connection = require('./connection');
 
 class Group extends Model {}
 Group.init(
   {
+    id: {
+      primaryKey: true,
+      type: UUID,
+      defaultValue: UUIDV4,
+    },
     name: {
       type: STRING,
       allowNull: false,

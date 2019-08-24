@@ -17,7 +17,7 @@ class AuthError extends Error {
   }
 }
 
-const userExists = (req, res, next) => {
+const loggedIn = (req, res, next) => {
   if (req.user) {
     next();
   } else {
@@ -25,7 +25,25 @@ const userExists = (req, res, next) => {
   }
 };
 
+const requestedUserExists = (req, res, next) => {
+  if (req.requestedUser) {
+    next();
+  } else {
+    res.sendStatus(400);
+  }
+};
+
+const loggedInUserIsRequestedUser = (req, res, next) => {
+  if (req.user.id !== req.requestedUser.id) {
+    res.sendStatus(401);
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   AuthError,
-  userExists,
+  loggedIn,
+  requestedUserExists,
+  loggedInUserIsRequestedUser,
 };
