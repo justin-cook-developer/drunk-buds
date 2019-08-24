@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "An app to make sure you don't lose your drunk friends!",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "server": "node ./server/index.js",
+    "server:dev": "./node_modules/.bin/nodemon ./server/index.js"
+  },
   "keywords": [
     "react",
     "redux",
