@@ -8,7 +8,7 @@ import Nav from '../Nav/Nav';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 
-const Groups = () => <div className='has-text-centered'>Groups</div>;
+const Groups = () => <div className="has-text-centered">Groups</div>;
 
 class App extends Component {
   componentDidMount() {
