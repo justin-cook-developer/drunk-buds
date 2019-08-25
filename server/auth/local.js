@@ -12,7 +12,7 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.get('/login', async (req, res, next) => {
+router.put('/login', async (req, res, next) => {
   try {
     const user = await User.login(req.body.username, req.body.password);
     req.session.userId = user.id;
