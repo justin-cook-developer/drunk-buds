@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Home from '../Home/Home';
-import Nav from '../Nav/NavDumb';
+import Nav from '../Nav/Nav';
 import Login from '../Login/LoginDumb';
 import Signup from '../Signup/SignupDumb';
 
@@ -16,7 +16,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" exact component={Login} />
-          <Route path='/signup' exact component={Signup} />
+          <Route path="/signup" exact component={Signup} />
         </Switch>
       </main>
     </Fragment>
