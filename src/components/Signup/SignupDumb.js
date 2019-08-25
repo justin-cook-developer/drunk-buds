@@ -4,12 +4,15 @@ import HalfPage from '../HalfPage/HalfPage';
 import Markup from './Markup';
 import axios from '../../axios';
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       values: {
+        firstName: '',
+        lastName: '',
         username: '',
+        email: '',
         password: '',
       },
       errors: {},
@@ -28,8 +31,11 @@ class Login extends Component {
     e.preventDefault();
 
     try {
-      const { data } = await axios.put('/auth/local/login', this.state.values);
-      
+      const { data } = await axios.post(
+        '/auth/local/signup',
+        this.state.values
+      );
+
       if (data.errors) {
         this.setState(state => ({ ...state, errors: data.errors }));
       }
@@ -54,4 +60,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;

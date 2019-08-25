@@ -5,12 +5,19 @@ import FormButtons from '../FormButtons/FormButtons';
 const Markup = ({ values, errors, handleChange, handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {['username', 'password'].map(name => (
+      {['firstName', 'lastName', 'username', 'email', 'password'].map(name => (
         <Field
           key={name}
           name={name}
           value={values[name]}
           error={errors[name]}
+          displayName={
+            name === 'firstName'
+              ? 'First Name'
+              : name === 'lastName'
+              ? 'Last Name'
+              : null
+          }
           handleChange={handleChange}
         />
       ))}
