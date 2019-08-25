@@ -1,10 +1,14 @@
 import React, { Fragment, Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import LoggedIn from '../Routers/LoggedIn';
+import NotLoggedIn from '../Routers/NotLoggedIn';
 import Home from '../Home/Home';
 import Nav from '../Nav/Nav';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
+
+const Groups = () => <div className='has-text-centered'>Groups</div>;
 
 class App extends Component {
   componentDidMount() {
@@ -20,8 +24,9 @@ class App extends Component {
         <main>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
+            <LoggedIn path="/groups" exact component={Groups} />
+            <NotLoggedIn path="/login" exact component={Login} />
+            <NotLoggedIn path="/signup" exact component={Signup} />
           </Switch>
         </main>
       </Fragment>
