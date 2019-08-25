@@ -29,11 +29,12 @@ class Login extends Component {
 
     try {
       const { data } = await axios.put('/auth/local/login', this.state.values);
-      
+
       if (data.errors) {
         this.setState(state => ({ ...state, errors: data.errors }));
+      } else {
+        this.props.gotUser(data);
       }
-      console.log(data);
     } catch (error) {
       console.error(error);
     }

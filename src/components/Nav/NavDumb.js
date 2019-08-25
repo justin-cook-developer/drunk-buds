@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Nav = ({ navOpen, toggleNav }) => {
+const Nav = ({ navOpen, toggleNav, loggedIn, logout }) => {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
+        <a className="navbar-item">
           <img
             src="https://bulma.io/images/bulma-logo.png"
             width="112"
@@ -40,21 +40,35 @@ const Nav = ({ navOpen, toggleNav }) => {
           <NavLink to="/" className="navbar-item">
             Home
           </NavLink>
-
-          <NavLink to="/groups" className="navbar-item">
-            Drinking Groups
-          </NavLink>
+          {loggedIn && (
+            <NavLink to="/groups" className="navbar-item">
+              Drinking Groups
+            </NavLink>
+          )}
         </div>
 
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <NavLink className="button is-primary" to="/login">
-                Log in
-              </NavLink>
-              <NavLink className="button is-light" to="/signup">
-                Sign up
-              </NavLink>
+              {!loggedIn && (
+                <NavLink className="button is-primary" to="/login">
+                  Log in
+                </NavLink>
+              )}
+              {!loggedIn && (
+                <NavLink className="button is-light" to="/signup">
+                  Sign up
+                </NavLink>
+              )}
+              {loggedIn && (
+                <button
+                  type="button"
+                  className="button is-danger"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </div>
