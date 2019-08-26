@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import LoggedIn from '../Routers/LoggedIn';
 import UpdateUser from '../UpdateUser/UpdateUser';
+import ChangePassword from '../ChangePassword/ChangePassword';
 
 const ProfilePage = ({ user }) => {
   const { username, firstName, lastName, email } = user;
@@ -47,6 +48,11 @@ const ProfilePage = ({ user }) => {
       </section>
       <section className="section">
         <LoggedIn path="/profile/edit" exact={true} component={UpdateUser} />
+        <LoggedIn
+          path="/profile/password"
+          exact={true}
+          component={ChangePassword}
+        />
       </section>
     </Fragment>
   );
