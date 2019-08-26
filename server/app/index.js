@@ -1,4 +1,5 @@
 const path = require('path');
+const http = require('http');
 const express = require('express');
 const morgan = require('morgan');
 const compression = require('compression');
@@ -9,6 +10,24 @@ const serializeUserMiddleware = require('./serializeUserMiddleware');
 const errorMiddleware = require('./errorMiddleware/index');
 
 const app = express();
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+
+io.on('connection', socket => {
+  socket.on('gotSelf', user => {
+    socket.userId = user.id;
+  });
+
+  socket.on('location', (long, lat) => {
+    if (socket.userId) {
+      io.emit('userLocation', { userId: socket.userId, long, lat });
+    }
+  });
+
+  socket.on('disconnect', () => {
+    delete socket.userId;
+  });
+});
 
 app.use(morgan('dev'));
 app.use(helmet());
@@ -26,4 +45,4 @@ app.use('/api', require('../api/index'));
 
 app.use(errorMiddleware);
 
-module.exports = app;
+module.exports = server;

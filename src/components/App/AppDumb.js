@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import socket from '../../socket';
 import LoggedIn from '../Routers/LoggedIn';
 import NotLoggedIn from '../Routers/NotLoggedIn';
 import Home from '../Home/Home';
@@ -14,6 +15,7 @@ const Groups = () => <div className="has-text-centered">Groups</div>;
 class App extends Component {
   componentDidMount() {
     this.props.getMe();
+    socket.on('userLocation', data => console.log(data));
   }
 
   render() {
