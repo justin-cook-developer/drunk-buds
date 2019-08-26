@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An app to make sure you don't lose your drunk friends!",
   "main": "index.js",
+  "engines": {
+    "node": "10.15.0"
+  },
   "scripts": {
     "start:dev": "npm run server:dev & npm run build:dev",
     "server": "node ./server/index.js",
