@@ -8,7 +8,7 @@ import Home from '../Home/Home';
 import Nav from '../Nav/Nav';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
-import ProfilePage from '../profilePage/profilePage';
+import ProfilePage from '../ProfilePage/profilePage';
 import Map from '../Map/Map';
 
 const Groups = () => <div className="has-text-centered">Groups</div>;
