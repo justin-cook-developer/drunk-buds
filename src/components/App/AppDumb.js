@@ -17,22 +17,26 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <Fragment>
-        <header>
-          <Nav />
-        </header>
-        <main>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <LoggedIn path="/groups" exact component={Groups} />
-            <LoggedIn path="/profile" exact={false} component={ProfilePage} />
-            <NotLoggedIn path="/login" exact component={Login} />
-            <NotLoggedIn path="/signup" exact component={Signup} />
-          </Switch>
-        </main>
-      </Fragment>
-    );
+    if (this.props.gettingMe) {
+      return null;
+    } else {
+      return (
+        <Fragment>
+          <header>
+            <Nav />
+          </header>
+          <main>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <LoggedIn path="/groups" exact component={Groups} />
+              <LoggedIn path="/profile" exact={false} component={ProfilePage} />
+              <NotLoggedIn path="/login" exact component={Login} />
+              <NotLoggedIn path="/signup" exact component={Signup} />
+            </Switch>
+          </main>
+        </Fragment>
+      );
+    }
   }
 }
 
