@@ -48,29 +48,34 @@ const Nav = ({ navOpen, toggleNav, loggedIn, logout }) => {
         </div>
 
         <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              {!loggedIn && (
+          {!loggedIn && (
+            <div className="navbar-item">
+              <div className="buttons">
                 <NavLink className="button is-primary" to="/login">
                   Log in
                 </NavLink>
-              )}
-              {!loggedIn && (
                 <NavLink className="button is-light" to="/signup">
                   Sign up
                 </NavLink>
-              )}
-              {loggedIn && (
-                <button
-                  type="button"
-                  className="button is-danger"
-                  onClick={logout}
-                >
-                  Logout
-                </button>
-              )}
+              </div>
             </div>
-          </div>
+          )}
+          {loggedIn && (
+            <NavLink to="/profile" className="navbar-item">
+              Profile
+            </NavLink>
+          )}
+          {loggedIn && (
+            <a className="navbar-item">
+              <button
+                type="button"
+                className="button is-danger"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </a>
+          )}
         </div>
       </div>
     </nav>

@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 
 import HalfPage from '../HalfPage/HalfPage';
-import Markup from './Markup';
+import Markup from '../Signup/Markup';
 import axios from '../../axios';
 
-class Signup extends Component {
+class UpdateUserForm extends Component {
   constructor(props) {
     super(props);
+    const { firstName, lastName, username, email } = props.user;
     this.state = {
-      values: {
-        firstName: '',
-        lastName: '',
-        username: '',
-        email: '',
-        password: '',
-      },
+      values: { username, firstName, lastName, email },
       errors: {},
     };
   }
@@ -31,8 +26,8 @@ class Signup extends Component {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
-        '/auth/local/signup',
+      const { data } = await axios.put(
+        `/api/users/${this.props.user.id}`,
         this.state.values
       );
 
@@ -48,18 +43,24 @@ class Signup extends Component {
 
   render() {
     return (
-      <section className="section">
-        <HalfPage>
-          <Markup
-            signup={true}
-            {...this.state}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
-        </HalfPage>
-      </section>
+      <HalfPage>
+        <Markup
+          signup={false}
+          {...this.state}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </HalfPage>
     );
   }
 }
 
-export default Signup;
+const UpdateUser = ({ user, gotUser }) => {
+  return <UpdateUserForm key={user.id} user={user} gotUser={gotUser} />;
+};
+
+UpdateUser.defaultProps = {
+  user: {}
+}
+
+export default UpdateUser;
