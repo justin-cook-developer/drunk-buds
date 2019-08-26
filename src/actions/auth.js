@@ -1,11 +1,25 @@
+import socket from '../socket';
+
 export const GOT_USER = 'GOT_USER';
 export const REMOVED_USER = 'REMOVED_USER';
 export const END_ME = 'END_ME';
 
-export const gotUser = user => ({
-  type: GOT_USER,
-  user,
-});
+export const gotUser = user => {
+  socket.emit('gotSelf', user);
+  navigator.geolocation.watchPosition(
+    position =>
+      socket.emit(
+        'location',
+        position.coords.longitude,
+        position.coords.latitude
+      ),
+    error => console.error(error)
+  );
+  return {
+    type: GOT_USER,
+    user,
+  };
+};
 
 const removedUser = () => ({
   type: REMOVED_USER,
