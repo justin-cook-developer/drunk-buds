@@ -13,6 +13,8 @@ import Map from '../Map/Map';
 
 const Groups = () => <div className="has-text-centered">Groups</div>;
 
+// maximumAge: 10000, timeout: 10000,
+
 class App extends Component {
   state = {
     locatorId: null,
@@ -29,7 +31,7 @@ class App extends Component {
           position.coords.latitude
         ),
       error => console.error(error),
-      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+      { enableHighAccuracy: true }
     );
     socket.on('userLocation', this.props.gotLocation);
 
