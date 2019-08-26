@@ -19,6 +19,8 @@ io.on('connection', socket => {
   });
 
   socket.on('location', (long, lat) => {
+    console.log(long, lat);
+
     if (socket.userId) {
       io.emit('userLocation', { userId: socket.userId, long, lat });
     }

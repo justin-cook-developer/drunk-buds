@@ -15,7 +15,7 @@ const Groups = () => <div className="has-text-centered">Groups</div>;
 class App extends Component {
   componentDidMount() {
     this.props.getMe();
-    socket.on('userLocation', data => console.log(data));
+    socket.on('userLocation', this.props.gotLocation);
   }
 
   render() {
