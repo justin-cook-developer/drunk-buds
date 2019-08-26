@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GOT_LOCATION: {
       const { userId } = action.data;
-      
+
       if (state.users[userId]) {
         const locations = state.locations.map(location =>
           location.userId === userId ? action.data : location
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
         return { ...state, locations };
       } else {
         const locations = [...state.locations, action.data];
-        const users = { ...state.users, userId: true };
+        const users = { ...state.users, [userId]: true };
         return { ...state, locations, users };
       }
     }

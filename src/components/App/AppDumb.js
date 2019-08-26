@@ -9,13 +9,35 @@ import Nav from '../Nav/Nav';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import ProfilePage from '../profilePage/profilePage';
+import Map from '../Map/Map';
 
 const Groups = () => <div className="has-text-centered">Groups</div>;
 
 class App extends Component {
+  state = {
+    locatorId: null,
+  };
+
   componentDidMount() {
     this.props.getMe();
+
+    const locatorId = navigator.geolocation.watchPosition(
+      position =>
+        socket.emit(
+          'location',
+          position.coords.longitude,
+          position.coords.latitude
+        ),
+      error => console.error(error),
+      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+    );
     socket.on('userLocation', this.props.gotLocation);
+
+    this.setState({ locatorId });
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.state.locatorId);
   }
 
   render() {
@@ -30,7 +52,7 @@ class App extends Component {
           <main>
             <Switch>
               <Route path="/" exact component={Home} />
-              <LoggedIn path="/groups" exact component={Groups} />
+              <LoggedIn path="/groups" exact component={Map} />
               <LoggedIn path="/profile" exact={false} component={ProfilePage} />
               <NotLoggedIn path="/login" exact component={Login} />
               <NotLoggedIn path="/signup" exact component={Signup} />

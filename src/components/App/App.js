@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 
-import socket from '../../socket';
 import App from './AppDumb';
 import { getMe as _getMe } from '../../actions/auth';
 import { gotLocation as _gotLocation } from '../../actions/groups';
