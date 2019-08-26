@@ -61,13 +61,20 @@ const Nav = ({ navOpen, toggleNav, loggedIn, logout }) => {
                 </NavLink>
               )}
               {loggedIn && (
-                <button
-                  type="button"
-                  className="button is-danger"
-                  onClick={logout}
-                >
-                  Logout
-                </button>
+                <NavLink to="/profile" className="navbar-item">
+                  Profile
+                </NavLink>
+              )}
+              {loggedIn && (
+                <a className="navbar-item">
+                  <button
+                    type="button"
+                    className="button is-danger"
+                    onClick={logout}
+                  >
+                    Logout
+                  </button>
+                </a>
               )}
             </div>
           </div>
