@@ -1,3 +1,7 @@
+if (!process.env.IS_PRODUCTION) {
+  require('dotenv').config();
+}
+
 const path = require('path');
 const http = require('http');
 const express = require('express');
