@@ -1,0 +1,44 @@
+users have groups
+groups have many users
+
+right now, each user is getting every other users location data { userId, firstName, long, lat }
+
+Without rooms or namespaces
+  -- add a users groups to their socket
+  -- when emitting data, could also attach the groupIds for that user
+      -- on the front, sort all locations by groupId,
+      -- would probably work
+      -- not good b/c insecure. Each client gets every other clients locations
+  -- when joining a group, sockets groupIds arr will need to be updated.
+  -- same for leaving a group.
+  -- Data would look like { userId, firstName, long, lat, groups: [groupId] }
+
+
+  -- downside: lots of duplicate actions.
+  will need an http req and socket emission for every action. Seems very not good.
+
+
+
+What I think is ideal:
+  -- build whole server architecture around sockets.
+  -- use rooms / namespaces for groups.
+  -- lots of stuff I don't know.
+
+
+
+
+
+
+GROUPS API
+-- get all groups for me.
+  -- groups that I own, or am member of
+  -- create groups
+    -- add users to groups. no request for now, just add them by force haha.
+      -- make this only owner?
+
+-- delete groups
+  -- only owner
+
+-- remove users from groups
+  -- owner
+    -- owner and self

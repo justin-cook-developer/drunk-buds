@@ -12,9 +12,12 @@ export const gotUser = user => {
   };
 };
 
-const removedUser = () => ({
-  type: REMOVED_USER,
-});
+const removedUser = () => {
+  socket.emit('logoutSelf');
+  return {
+    type: REMOVED_USER,
+  };
+};
 
 const endMe = () => ({ type: END_ME });
 

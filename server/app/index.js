@@ -18,16 +18,27 @@ const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 io.on('connection', socket => {
-  socket.on('gotSelf', user => {
-    socket.userId = user.id;
-  });
-
   socket.on('location', (long, lat) => {
     console.log(long, lat);
 
     if (socket.userId) {
-      io.emit('userLocation', { userId: socket.userId, long, lat });
+      io.emit('userLocation', {
+        userId: socket.userId,
+        firstName: socket.firstName,
+        long,
+        lat,
+      });
     }
+  });
+
+  socket.on('gotSelf', user => {
+    socket.userId = user.id;
+    socket.firstName = user.firstName;
+  });
+
+  socket.on('logoutSelf', () => {
+    delete socket.userId;
+    delete socket.firstName;
   });
 
   socket.on('disconnect', () => {

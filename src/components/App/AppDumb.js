@@ -13,8 +13,6 @@ import Map from '../Map/Map';
 
 const Groups = () => <div className="has-text-centered">Groups</div>;
 
-// maximumAge: 10000, timeout: 10000,
-
 class App extends Component {
   state = {
     locatorId: null,
@@ -54,7 +52,8 @@ class App extends Component {
           <main>
             <Switch>
               <Route path="/" exact component={Home} />
-              <LoggedIn path="/groups" exact component={Map} />
+              <LoggedIn path="/groups" exact component={Groups} />
+              <LoggedIn path="/map" exact component={Map} />
               <LoggedIn path="/profile" exact={false} component={ProfilePage} />
               <NotLoggedIn path="/login" exact component={Login} />
               <NotLoggedIn path="/signup" exact component={Signup} />
