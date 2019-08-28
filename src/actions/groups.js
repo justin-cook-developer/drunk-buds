@@ -1,4 +1,5 @@
 export const GOT_GROUPS = 'GOT_GROUPS';
+export const GOT_GROUP = 'GOT_GROUP';
 export const GOT_SINGLE_GROUP = 'GOT_SINGLE_GROUP';
 export const REMOVED_GROUP = 'REMOVED_GROUP';
 export const REMOVED_SINGLE_GROUP = 'REMOVED_SINGLE_GROUP';
@@ -6,6 +7,11 @@ export const REMOVED_SINGLE_GROUP = 'REMOVED_SINGLE_GROUP';
 const gotGroups = groups => ({
   type: GOT_GROUPS,
   groups,
+});
+
+export const gotGroup = group => ({
+  type: GOT_GROUP,
+  group,
 });
 
 const removedGroup = id => ({

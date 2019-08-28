@@ -3,7 +3,6 @@ import { getGroups as _getGroups } from '../../actions/groups';
 import Groups from './GroupsDumb';
 
 const mapStateToProps = ({ groups }) => {
-  console.log(groups);
   return { groups: groups.groups };
 };
 

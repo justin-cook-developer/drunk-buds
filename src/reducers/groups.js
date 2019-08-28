@@ -1,5 +1,6 @@
 import {
   GOT_GROUPS,
+  GOT_GROUP,
   GOT_SINGLE_GROUP,
   REMOVED_GROUP,
   REMOVED_SINGLE_GROUP,
@@ -14,6 +15,10 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GOT_GROUPS: {
       const groups = action.groups;
+      return { ...state, groups };
+    }
+    case GOT_GROUP: {
+      const groups = [...state.groups, action.group];
       return { ...state, groups };
     }
     case GOT_SINGLE_GROUP: {
