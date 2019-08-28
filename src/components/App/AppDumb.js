@@ -9,11 +9,8 @@ import Nav from '../Nav/Nav';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import ProfilePage from '../ProfilePage/profilePage';
-import Map from '../Map/Map';
-
-const Groups = () => <div className="has-text-centered">Groups</div>;
-
-// maximumAge: 10000, timeout: 10000,
+import Groups from '../Groups/Groups';
+import Group from '../SingleGroup/Group';
 
 class App extends Component {
   state = {
@@ -54,7 +51,8 @@ class App extends Component {
           <main>
             <Switch>
               <Route path="/" exact component={Home} />
-              <LoggedIn path="/groups" exact component={Map} />
+              <LoggedIn path="/groups" exact component={Groups} />
+              <LoggedIn path="/groups/:id" exact component={Group} />
               <LoggedIn path="/profile" exact={false} component={ProfilePage} />
               <NotLoggedIn path="/login" exact component={Login} />
               <NotLoggedIn path="/signup" exact component={Signup} />

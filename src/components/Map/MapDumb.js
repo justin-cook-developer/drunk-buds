@@ -42,7 +42,7 @@ class SimpleMap extends Component {
               key={location.userId}
               lat={location.lat}
               lng={location.long}
-              text={location.userId}
+              text={location.firstName}
             />
           ))}
         </GoogleMapReact>

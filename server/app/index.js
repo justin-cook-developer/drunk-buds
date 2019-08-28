@@ -16,18 +16,36 @@ const errorMiddleware = require('./errorMiddleware/index');
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server);
+const { GroupMembers } = require('../db/index');
 
 io.on('connection', socket => {
-  socket.on('gotSelf', user => {
-    socket.userId = user.id;
-  });
-
-  socket.on('location', (long, lat) => {
+  socket.on('location', async (long, lat) => {
     console.log(long, lat);
 
     if (socket.userId) {
-      io.emit('userLocation', { userId: socket.userId, long, lat });
+      const groupIds = await GroupMembers.findAll({
+        where: { userId: socket.userId },
+        attributes: ['groupId'],
+      });
+
+      io.emit('userLocation', {
+        userId: socket.userId,
+        firstName: socket.firstName,
+        long,
+        lat,
+        groupIds: groupIds.map(obj => obj.groupId),
+      });
     }
+  });
+
+  socket.on('gotSelf', user => {
+    socket.userId = user.id;
+    socket.firstName = user.firstName;
+  });
+
+  socket.on('logoutSelf', () => {
+    delete socket.userId;
+    delete socket.firstName;
   });
 
   socket.on('disconnect', () => {

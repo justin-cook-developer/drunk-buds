@@ -41,9 +41,17 @@ const loggedInUserIsRequestedUser = (req, res, next) => {
   }
 };
 
+const groupIdExists = (req, res, next) =>
+  req.params.groupId ? next() : res.sendStatus(400);
+
+const userIdExists = (req, res, next) =>
+  req.params.userId ? next() : res.sendStatus(400);
+
 module.exports = {
   AuthError,
   loggedIn,
   requestedUserExists,
   loggedInUserIsRequestedUser,
+  groupIdExists,
+  userIdExists,
 };

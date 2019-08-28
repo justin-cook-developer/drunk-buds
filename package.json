@@ -12,7 +12,8 @@
     "server": "node ./server/index.js",
     "server:dev": "./node_modules/.bin/nodemon ./server/index.js --ignore public/ --ignore src/",
     "build": "./node_modules/.bin/webpack --config webpack.production.config.js",
-    "build:dev": "./node_modules/.bin/webpack --config webpack.config.js --watch"
+    "build:dev": "./node_modules/.bin/webpack --config webpack.config.js --watch",
+    "seed": "node ./seed.js"
   },
   "keywords": [
     "react",

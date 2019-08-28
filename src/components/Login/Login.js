@@ -5,8 +5,9 @@ import Login from './LoginDumb';
 
 const mapDispatchToProps = (dispatch, { history }) => ({
   gotUser(user) {
-    dispatch(_gotUser(user));
-    history.push('/groups');
+    dispatch(_gotUser(user)).then(() => {
+      history.push('/groups');
+    });
   },
 });
 

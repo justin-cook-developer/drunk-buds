@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import App from './AppDumb';
 import { getMe as _getMe } from '../../actions/auth';
-import { gotLocation as _gotLocation } from '../../actions/groups';
+import { gotLocation as _gotLocation } from '../../actions/locations';
 
 const mapStateToProps = ({ auth }) => ({
   gettingMe: auth.gettingMe,
@@ -13,8 +13,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(_getMe());
   },
   gotLocation(data) {
-    console.log(data);
-
     dispatch(_gotLocation(data));
   },
 });

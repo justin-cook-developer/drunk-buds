@@ -1,6 +1,7 @@
 const connection = require('./connection');
 const User = require('./user');
 const Group = require('./group');
+const GroupMembers = require('./group_members');
 const Session = require('./session');
 
 Group.belongsToMany(User, { through: 'group_members' });
@@ -12,5 +13,6 @@ module.exports = {
   connection,
   User,
   Group,
+  GroupMembers,
   Session,
 };

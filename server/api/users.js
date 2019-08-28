@@ -16,6 +16,22 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/username/:username', async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: { username: req.params.username },
+    });
+
+    if (user) {
+      res.json(user);
+    } else {
+      res.json({ errors: { username: 'User not found.' } });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.param('id', async (req, _, next, id) => {
   try {
     const user = await User.findOne({ where: { id } });
