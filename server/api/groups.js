@@ -8,11 +8,7 @@ const {
 
 router.get('/', loggedIn, async (req, res, next) => {
   try {
-    const groups = await GroupMembers.findAll({
-      where: { userId: req.user.id, isAcitve: true },
-      include: [{ model: Group }],
-    });
-
+    const groups = await req.user.getGroups({ where: { isActive: true } });
     res.json(groups);
   } catch (error) {
     next(error);
@@ -21,13 +17,16 @@ router.get('/', loggedIn, async (req, res, next) => {
 
 router.get('/:groupId', groupIdExists, async (req, res, next) => {
   try {
-    const group = await GroupMembers.findOne({
+    const group_member = await GroupMembers.findOne({
       where: {
         userId: req.user.id,
         groupId: req.params.groupId,
-        isAcitve: true,
       },
-      include: [{ model: Group, include: [{ model: User }] }],
+    });
+
+    const group = await Group.findOne({
+      where: { id: group_member.groupId, isActive: true },
+      include: [{ model: User }],
     });
 
     res.json(group);
@@ -41,11 +40,13 @@ router.post('/', loggedIn, async (req, res, next) => {
     const { name, agenda, location, startTime } = req.body;
 
     const [group, created] = await Group.findOrCreate({
-      name,
-      agenda,
-      location,
-      startTime,
-      creatorId: req.user.id,
+      where: {
+        name,
+        agenda,
+        location,
+        startTime,
+        creatorId: req.user.id,
+      },
     });
 
     if (created) {
@@ -116,7 +117,7 @@ router.delete('/:groupId', loggedIn, groupIdExists, async (req, res, next) => {
 
     if (group) {
       if (group.creatorId === req.user.id) {
-        await group.update({ isAcitve: false });
+        await group.update({ isActive: false });
 
         res.sendStatus(204);
       } else {
