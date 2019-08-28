@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Group, connection, User, GroupMembers } = require('../db/index');
+const { Group, User, GroupMembers } = require('../db/index');
 const {
   groupIdExists,
   userIdExists,
