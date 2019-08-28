@@ -10,8 +10,7 @@ import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import ProfilePage from '../ProfilePage/profilePage';
 import Map from '../Map/Map';
-
-const Groups = () => <div className="has-text-centered">Groups</div>;
+import Groups from '../Groups/Groups';
 
 class App extends Component {
   state = {
