@@ -9,8 +9,8 @@ import Nav from '../Nav/Nav';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import ProfilePage from '../ProfilePage/profilePage';
-import Map from '../Map/Map';
 import Groups from '../Groups/Groups';
+import Group from '../SingleGroup/Group';
 
 class App extends Component {
   state = {
@@ -52,7 +52,7 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Home} />
               <LoggedIn path="/groups" exact component={Groups} />
-              <LoggedIn path="/map" exact component={Map} />
+              <LoggedIn path="/groups/:id" exact component={Group} />
               <LoggedIn path="/profile" exact={false} component={ProfilePage} />
               <NotLoggedIn path="/login" exact component={Login} />
               <NotLoggedIn path="/signup" exact component={Signup} />

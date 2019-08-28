@@ -1,6 +1,7 @@
 export const GOT_GROUPS = 'GOT_GROUPS';
 export const GOT_GROUP = 'GOT_GROUP';
 export const GOT_SINGLE_GROUP = 'GOT_SINGLE_GROUP';
+export const ADD_USER_TO_GROUP = 'ADD_USER_TO_GROUP';
 export const REMOVED_GROUP = 'REMOVED_GROUP';
 export const REMOVED_SINGLE_GROUP = 'REMOVED_SINGLE_GROUP';
 
@@ -22,6 +23,11 @@ const removedGroup = id => ({
 const gotSingleGroup = group => ({
   type: GOT_SINGLE_GROUP,
   group,
+});
+
+const addedUserToGroup = user => ({
+  type: ADD_USER_TO_GROUP,
+  user,
 });
 
 export const removeSingleGroup = () => ({ type: REMOVED_SINGLE_GROUP });
@@ -48,6 +54,15 @@ export const getSingleGroup = id => async (dispatch, _, axios) => {
   try {
     const { data: group } = await axios.get(`/api/groups/${id}`);
     dispatch(gotSingleGroup(group));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const addUserToGroup = (groupId, user) => async (dispatch, _, axios) => {
+  try {
+    await axios.post(`/api/groups/${groupId}/users/${user.id}`);
+    dispatch(addedUserToGroup(user));
   } catch (error) {
     console.error(error);
   }

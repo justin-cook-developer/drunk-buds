@@ -4,6 +4,7 @@ import {
   GOT_SINGLE_GROUP,
   REMOVED_GROUP,
   REMOVED_SINGLE_GROUP,
+  ADD_USER_TO_GROUP,
 } from '../actions/groups';
 
 const initialState = {
@@ -20,6 +21,13 @@ export default (state = initialState, action) => {
     case GOT_GROUP: {
       const groups = [...state.groups, action.group];
       return { ...state, groups };
+    }
+    case ADD_USER_TO_GROUP: {
+      const singleGroup = {
+        ...state.singleGroup,
+        users: [...state.singleGroup.users, action.user],
+      };
+      return { ...state, singleGroup };
     }
     case GOT_SINGLE_GROUP: {
       const singleGroup = action.group;
