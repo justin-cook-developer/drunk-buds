@@ -58,6 +58,10 @@ io.on('connection', socket => {
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(compression());
+app.use(function(req, res, next) {
+  req.headers['if-none-match'] = 'no-match-for-this';
+  next();
+});
 app.use(sessionMiddleware);
 
 app.use(express.static(path.join(__dirname, '..', '..', 'public')));
