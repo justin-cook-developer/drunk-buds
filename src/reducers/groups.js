@@ -31,8 +31,6 @@ export default (state = initialState, action) => {
       return { ...state, singleGroup };
     }
     case REMOVE_USER_FROM_GROUP: {
-      console.log('irerucerrrr', action.userId);
-
       const singleGroup = {
         ...state.singleGroup,
         users: state.singleGroup.users.filter(
