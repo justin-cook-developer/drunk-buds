@@ -16,26 +16,19 @@ const errorMiddleware = require('./errorMiddleware/index');
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server);
-const { GroupMembers } = require('../db/index');
+const Cache = require('../../cache');
+
+const cache = new Cache(60);
 
 io.on('connection', socket => {
-  socket.on('location', async (long, lat) => {
+  socket.on('location', (long, lat) => {
     if (socket.userId) {
-      // refreshable cache
-      // pojo
-      // use an interval to make the db call
-      // redis is most ideal -- do not go there
-      const groupIds = await GroupMembers.findAll({
-        where: { userId: socket.userId },
-        attributes: ['groupId'],
-      });
-
       io.emit('userLocation', {
         userId: socket.userId,
         firstName: socket.firstName,
         long,
         lat,
-        groupIds: groupIds.map(obj => obj.groupId),
+        groupIds: cache.get(socket.userId),
       });
     }
   });
