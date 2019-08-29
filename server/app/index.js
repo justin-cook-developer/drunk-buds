@@ -21,14 +21,15 @@ const Cache = require('../../cache');
 const cache = new Cache(60);
 
 io.on('connection', socket => {
-  socket.on('location', (long, lat) => {
+  socket.on('location', async (long, lat) => {
     if (socket.userId) {
+      const groupIds = await cache.get(socket.userId);
       io.emit('userLocation', {
         userId: socket.userId,
         firstName: socket.firstName,
         long,
         lat,
-        groupIds: cache.get(socket.userId),
+        groupIds,
       });
     }
   });
