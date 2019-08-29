@@ -5,6 +5,7 @@ import {
   REMOVED_GROUP,
   REMOVED_SINGLE_GROUP,
   ADD_USER_TO_GROUP,
+  REMOVE_USER_FROM_GROUP,
 } from '../actions/groups';
 
 const initialState = {
@@ -26,6 +27,17 @@ export default (state = initialState, action) => {
       const singleGroup = {
         ...state.singleGroup,
         users: [...state.singleGroup.users, action.user],
+      };
+      return { ...state, singleGroup };
+    }
+    case REMOVE_USER_FROM_GROUP: {
+      console.log('irerucerrrr', action.userId);
+
+      const singleGroup = {
+        ...state.singleGroup,
+        users: state.singleGroup.users.filter(
+          user => user.id !== action.userId
+        ),
       };
       return { ...state, singleGroup };
     }

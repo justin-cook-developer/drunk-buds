@@ -119,6 +119,17 @@ class Group extends Component {
             {date.getFullYear()}
           </p>
           <p className="content has-text-centered">Agenda: {group.agenda}</p>
+          {this.props.userOwnsGroup && (
+            <p className="content has-text-centered">
+              <button
+                type="button"
+                className="button is-danger"
+                onClick={() => this.props.deleteGroup(group.id)}
+              >
+                Delete Group
+              </button>
+            </p>
+          )}
         </section>
 
         <section className="section">
@@ -144,8 +155,26 @@ class Group extends Component {
           )}
           <ul className="list">
             {group.users.map(({ id, username, firstName, lastName }) => (
-              <li className="list-item has-text-centered" key={id}>
-                {username} : {firstName} {lastName}
+              <li
+                className="list-item has-text-centered"
+                key={id}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                }}
+              >
+                <span>
+                  {username} : {firstName} {lastName}
+                </span>
+                {group.creatorId !== id && (
+                  <button
+                    type="button"
+                    className="button is-danger is-small"
+                    onClick={() => this.props.removeUser(id)}
+                  >
+                    Remove User
+                  </button>
+                )}
               </li>
             ))}
           </ul>
