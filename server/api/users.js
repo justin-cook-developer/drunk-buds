@@ -7,18 +7,27 @@ const {
 } = require('../../utils/backend');
 
 // will make this queryable based on username
-router.get('/', async (req, res, next) => {
-  try {
-    const users = await User.findAll();
-    res.json(users);
-  } catch (error) {
-    next(error);
+router.get(
+  '/',
+  (req, res, next) => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.sendStatus(401);
+    }
+  },
+  async (req, res, next) => {
+    try {
+      const users = await User.findAll();
+      res.json(users);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.get('/username/:username', async (req, res, next) => {
   try {
-    console.log(req.params.username);
     const user = await User.findOne({
       where: { username: req.params.username },
     });
@@ -54,10 +63,10 @@ router.put(
   async (req, res, next) => {
     try {
       await User.comparePasswords(
-        req.body.password,
+        req.body.password.trim(),
         req.requestedUser.password
       );
-      await req.requestedUser.update({ password: req.body.newPassword });
+      await req.requestedUser.update({ password: req.body.newPassword.trim() });
       res.sendStatus(204);
     } catch (error) {
       next(error);
@@ -73,7 +82,12 @@ router.put(
     try {
       const { username, firstName, lastName, email } = req.body;
 
-      await req.requestedUser.update({ username, firstName, lastName, email });
+      await req.requestedUser.update({
+        username: username.trim(),
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+      });
       await req.requestedUser.reload();
 
       res.json(req.requestedUser);
