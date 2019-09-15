@@ -60,8 +60,8 @@ If you do not have Node (https://nodejs.org/en/download/) and PostgreSQL (https:
 
 <b>Then:</b>
 
-- Clone this directory && cd into 'acme-schools'
+- Clone this directory && cd into 'drunkBuds'
 - Create the database 'drunkBuds' by executing `createdb drunkBuds` in the terminal or using a GUI
 - execute `npm install` to install the packages
-- execute `npm run start:dev` to start the application server
+- execute `npm run start:dev` to start the application server and bundle the front end code
 - navigate to (http://localhost:3000/#/) in the browser
