@@ -20,12 +20,12 @@ This project was assigned assigned for Stackathon, a one week solo project at Fu
 - [React]
 - [React Router]
 - [Redux]
+- [Redux Thunk]
 - [React Redux]
-- [Redux Reselect]
-- [Socket.io]
+- [Socket.io-client]
 - [Google Maps React]
 
-<b>Testing and Development</b>
+<b>Development</b>
 
 - [Webpack]
 - [Babel]
@@ -36,8 +36,8 @@ This project was assigned assigned for Stackathon, a one week solo project at Fu
 
 - Log in / Sign up
 - Edit their profile and password
-- Create Groups
-- Delete Groups they created
+- Create groups
+- Delete groups they created
 - Add friends to groups by username
 - Remove friends from groups
 - See the groups they belong to
